@@ -1,10 +1,15 @@
 import cv2
 import requests
 import json
+import time  # Import the time module for adding delay
 
 ROBOFLOW_MODEL_URL = "https://detect.roboflow.com/zebracrossing-c8nt7/3?api_key=pO6es6Rk5b8VRMmGmRjV"
 IMAGE_SIZE = 640
 video_capture = cv2.VideoCapture(0)
+
+# User-configurable base IP address
+base_ip = "192.168.137.170"
+EXTEND_TIME_URL = f"http://{base_ip}/extend_time"  # Construct the full URL
 
 def detect_objects(frame):
     height, width, _ = frame.shape
@@ -14,6 +19,8 @@ def detect_objects(frame):
     # Send the image to RoboFlow for detection
     response = requests.post(ROBOFLOW_MODEL_URL, files={"file": encoded_image})
     predictions = response.json().get("predictions", [])
+    
+    older_detected = False  # Flag to check if "older" is detected
     
     for prediction in predictions:
         if "class" not in prediction:
@@ -33,9 +40,26 @@ def detect_objects(frame):
         elif area < 20000:
             label = "older"  # If bounding box is small, assume farther and likely older
 
+        # Check if "older" is detected
+        if label == "older":
+            older_detected = True
+        
         # Draw bounding box and label
         cv2.rectangle(frame, (x - w // 2, y - h // 2), (x + w // 2, y + h // 2), (0, 255, 0), 2)
         cv2.putText(frame, label, (x - w // 2, y - h // 2 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36, 255, 12), 2)
+
+    # Trigger the extend time endpoint if "older" is detected with a delay
+    if older_detected:
+        print("Older person detected. Waiting for 5 seconds before triggering the request.")
+        time.sleep(5)  # Add a 5-second delay
+        try:
+            response = requests.get(EXTEND_TIME_URL)
+            if response.status_code == 200:
+                print("Timer extended successfully.")
+            else:
+                print("Failed to extend time. Response code:", response.status_code)
+        except requests.RequestException as e:
+            print("Error while making the request to extend time:", e)
 
     return frame
 
