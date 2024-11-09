@@ -1,8 +1,0 @@
-# emergency_vehicle.yaml
-path: E:/Git/IT-Sabarna/Traffic-monitor/emergency-vehicle-prediction
-train: train/images
-val: valid/images
-test: test/images  # Optional
-
-nc: 3  # number of classes
-names: ['ambulance', 'fire truck', 'police car']  # class names
