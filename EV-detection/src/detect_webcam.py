@@ -8,7 +8,7 @@ import torch.backends.cudnn as cudnn
 from numpy import random
 import numpy as np
 import sys
-sys.path.append(r"E:/Git/IT-Sabarna/Traffic-monitor/EV-detection/src/yolov7")
+sys.path.append(r"path of /yolov7")
 
 
 from models.experimental import attempt_load
