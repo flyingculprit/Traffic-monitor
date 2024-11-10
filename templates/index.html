@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prediction System</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <style>
+      /* Basic tab styling */
+      .tab-content {
+        display: none;
+      }
+      .tab-button.active {
+        background-color: #4caf50;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Enhanced Traffic Management System</h1>
+
+      <!-- Navigation Tabs -->
+      <div class="tabs">
+        <button class="tab-button active" onclick="showTab('agePredictionTab')">
+          Age Prediction
+        </button>
+        <button class="tab-button" onclick="showTab('emergencyVehicleTab')">
+          Emergency Vehicle Detection
+        </button>
+        <button class="tab-button" onclick="showTab('stopTab')">
+          Stop Process
+        </button>
+      </div>
+
+      <!-- Tab Content -->
+      <div id="agePredictionTab" class="tab-content" style="display: block">
+        <form method="POST" action="/age_prediction">
+          <button type="submit" class="btn">Start Age Prediction</button>
+        </form>
+      </div>
+
+      <div id="emergencyVehicleTab" class="tab-content">
+        <form method="POST" action="/emergency_vehicle">
+          <button type="submit" class="btn">
+            Start Emergency Vehicle Detection
+          </button>
+        </form>
+      </div>
+
+      <div id="stopTab" class="tab-content">
+        <form method="POST" action="/stop">
+          <button type="submit" class="btn stop-btn">Stop Process</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript to handle tab navigation
+      function showTab(tabId) {
+        // Hide all tabs
+        const tabs = document.querySelectorAll(".tab-content");
+        tabs.forEach((tab) => {
+          tab.style.display = "none";
+        });
+
+        // Remove active class from all buttons
+        const buttons = document.querySelectorAll(".tab-button");
+        buttons.forEach((button) => {
+          button.classList.remove("active");
+        });
+
+        // Show the selected tab
+        document.getElementById(tabId).style.display = "block";
+
+        // Add active class to the clicked button
+        const activeButton = document.querySelector(
+          button[onclick="showTab('${tabId}')"]
+        );
+        activeButton.classList.add("active");
+      }
+    </script>
+  </body>
+</html>
