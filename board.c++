@@ -24,7 +24,7 @@ bool isTimerPaused = false; // Flag to control whether the timer is paused
 LiquidCrystal_I2C lcd(0x27, 16, 2); // Set the LCD address to 0x27 for a 16x2 display
 
 // Weather API settings
-const char* apiKey = "7145b20bcd2af28f0906caf3d9489c40";
+const char* apiKey = "Add your weather API";
 const char* city = "Karur";  // City name
 const char* weatherAPI = "http://api.openweathermap.org/data/2.5/weather?q=";
 
