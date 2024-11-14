@@ -9,7 +9,7 @@ import numpy as np
 import requests  # Import requests to send HTTP requests
 
 import sys
-sys.path.append(r"D:/python/Traffic-monitor-main/EV-detection/src/yolov7")
+sys.path.append(r"path-of-folder/Traffic-monitor-main/EV-detection/src/yolov7")
 
 from models.experimental import attempt_load
 from utils.datasets import LoadStreams, LoadImages
