@@ -3,7 +3,7 @@ import requests
 import json
 import time  # Import the time module for adding delay
 
-ROBOFLOW_MODEL_URL = "https://detect.roboflow.com/zebracrossing-c8nt7/3?api_key=pO6es6Rk5b8VRMmGmRjV"
+ROBOFLOW_MODEL_URL = "put your roboflow API"
 IMAGE_SIZE = 640
 video_capture = cv2.VideoCapture(0)
 
